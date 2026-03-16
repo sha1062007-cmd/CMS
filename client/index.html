@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ConnectFlow | Modern Contact Management</title>
+  <meta name="description" content="Manage your contacts seamlessly with ConnectFlow, a modern and stylish contact management app.">
+  <!-- Google Fonts Link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom CSS link -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Navbar -->
+    <header class="app-header">
+      <div class="logo">
+        <i class="fas fa-address-book"></i>
+        <h1>Connect<span>Flow</span></h1>
+      </div>
+      <div class="header-actions">
+        <button id="add-contact-btn" class="btn primary-btn"><i class="fas fa-plus"></i> New Contact</button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="app-body">
+      <!-- Search Component -->
+      <section class="search-section">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" id="contact-search" placeholder="Search by name, email, or phone...">
+        </div>
+      </section>
+
+      <!-- Dashboard Stats (Optional but wows user) -->
+      <section class="stats-grid">
+          <div class="stat-card">
+              <span class="stat-label">Total Contacts</span>
+              <span id="total-contacts-count" class="stat-value">0</span>
+          </div>
+          <div class="stat-card">
+              <span class="stat-label">Favorites</span>
+              <span id="favorite-contacts-count" class="stat-value">0</span>
+          </div>
+      </section>
+
+      <!-- Contacts List/Grid -->
+      <section class="contacts-gallery">
+          <div id="contacts-container" class="contacts-grid">
+              <!-- Contact cards will be dynamically rendered here -->
+          </div>
+          <div id="no-contacts-msg" class="empty-state hidden">
+              <img src="https://cdni.iconscout.com/illustration/premium/thumb/empty-state-search-4461073-3702111.png" alt="Empty contacts" />
+              <p>No contacts found. Time to add your first one!</p>
+          </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal for Add/Edit Contact -->
+  <div id="contact-modal" class="modal hidden">
+    <div class="modal-content glass-effect">
+      <div class="modal-header">
+        <h2 id="modal-title">Add New Contact</h2>
+        <button id="close-modal-btn" class="close-btn">&times;</button>
+      </div>
+      <form id="contact-form">
+        <input type="hidden" id="contact-id">
+        <div class="form-group">
+          <label for="name">Name <span class="required">*</span></label>
+          <input type="text" id="name" name="name" required placeholder="John Doe">
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="phone">Phone <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" required placeholder="+1 234 567 890">
+            </div>
+            <div class="form-group">
+                <label for="email">Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required placeholder="john.doe@example.com">
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" name="address" placeholder="123 Main St, City, Country">
+        </div>
+        <div class="form-group">
+            <label for="contact-photo">Profile Photo</label>
+            <div class="file-upload-wrapper">
+                <input type="file" id="contact-photo" accept="image/*" class="file-input">
+                <div class="file-custom-btn">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Choose / Take a Photo</span>
+                </div>
+            </div>
+            <input type="hidden" id="profilePictureUrl" name="profilePictureUrl">
+            <div id="photo-preview-container" class="photo-preview hidden">
+                <img src="" id="photo-preview-img" alt="Preview">
+                <button type="button" id="remove-photo-btn" class="remove-btn">&times;</button>
+            </div>
+            <p class="form-hint">Selected photo will be stored directly in the database.</p>
+        </div>
+        <div class="form-checkbox">
+            <input type="checkbox" id="isFavorite" name="isFavorite">
+            <label for="isFavorite">Add to Favorites</label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="cancel-contact-btn" class="btn secondary-btn">Cancel</button>
+          <button type="submit" id="save-contact-btn" class="btn primary-btn">Save Contact</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirmation Dialog (Custom Delete Confirmation) -->
+  <div id="confirm-modal" class="modal hidden">
+    <div class="modal-content glass-effect confirm-box">
+      <h3>Delete Contact?</h3>
+      <p>Are you sure you want to delete <span id="delete-contact-name"></span>? This action cannot be undone.</p>
+      <div class="modal-footer">
+          <button id="cancel-delete-btn" class="btn secondary-btn">Cancel</button>
+          <button id="confirm-delete-btn" class="btn danger-btn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=1.2"></script>
+</body>
+</html>
